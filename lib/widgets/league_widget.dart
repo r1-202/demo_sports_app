@@ -32,7 +32,7 @@ class LeagueWidget extends StatelessWidget {
                 height: 50,
                 fit: BoxFit.cover,
               ),
-              SizedBox(width: 10), // Space between image and text
+              SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
