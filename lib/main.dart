@@ -4,14 +4,6 @@ import 'package:provider/provider.dart';
 import 'utils/http_getters.dart';
 
 void main() {
-  getLeagues().then((list){
-    int count = 0;
-    for(var league in list)
-    {
-      ++count;
-      print('$count: ${league.id} ${league.name} ${league.sport} ${league.bannerUrl}\n');
-    }
-  });
   runApp(MyApp());
 }
 
