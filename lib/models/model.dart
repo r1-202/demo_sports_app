@@ -1,7 +1,5 @@
 library model;
 
-import 'dart:async';
-
 List<String> idList = [
 "4328",
 "4329",
