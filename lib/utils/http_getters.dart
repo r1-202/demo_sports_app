@@ -37,6 +37,7 @@ Future<List<Event>> getEvents(String leagueId) async {
           jsonDecode(response.body) as Map<String, dynamic>;
       var listJson = jsonMap["events"] as List<dynamic>;
       for (var l in listJson) {
+        if(l["strTimestamp"] == null) continue;
         DateTime eventTime = DateTime.parse(l["strTimestamp"]);
 
         // Add the below line if we only want to show upcoming events.
