@@ -1,5 +1,7 @@
 library model;
 
+import 'dart:async';
+
 List<String> idList = [
 "4328",
 "4329",
@@ -67,13 +69,25 @@ List<String> bannerUrlList = [
 ];
 
 class League {
-  int id = -1;
+  String id = "";
   String name = "";
   String sport = "";
   String bannerUrl = "";
+  League(String i, String n, String s, String b)
+  {
+    id = i;
+    name = n;
+    sport = s;
+    bannerUrl = b;
+  }
 }
 
 class Event {
-  String titl = "";
+  String title = "";
   String timeStamp = "";
+  Event(String t, String ts)
+  {
+    title = t;
+    timeStamp = ts;
+  }
 }
