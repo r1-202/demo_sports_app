@@ -1,7 +1,5 @@
 import 'package:demo_sports_app/screens/leagues_screen.dart';
 import 'package:flutter/material.dart';
-import 'models/model.dart';
-import 'utils/http_getters.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,14 +14,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  late Future<List<League>> futureLeagues;
-
-  @override
-  void initState() {
-    super.initState();
-    futureLeagues = getLeagues();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,26 +22,7 @@ class _MyAppState extends State<MyApp> {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         ),
-        home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Fetch Data Example'),
-        ),
-        body: Center(
-          child: FutureBuilder<List<League>>(
-            future: futureLeagues,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return LeaguesScreen(snapshot.data!);
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-
-              // By default, show a loading spinner.
-              return const CircularProgressIndicator();
-            },
-          ),
-        ),
-      ),
+        home: LeaguesScreen()
     );
   }
 }
