@@ -1,48 +1,57 @@
-import 'package:english_words/english_words.dart';
+import 'package:demo_sports_app/screens/leagues_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'models/model.dart';
 import 'utils/http_getters.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  late Future<List<League>> futureLeagues;
+
+  @override
+  void initState() {
+    super.initState();
+    futureLeagues = getLeagues();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
-      child: MaterialApp(
-        title: 'Namer App',
+    return MaterialApp(
+        title: 'Sports App',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         ),
-        home: Placeholder(),
+        home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Fetch Data Example'),
+        ),
+        body: Center(
+          child: FutureBuilder<List<League>>(
+            future: futureLeagues,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return LeaguesScreen(snapshot.data!);
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+
+              // By default, show a loading spinner.
+              return const CircularProgressIndicator();
+            },
+          ),
+        ),
       ),
     );
   }
-}
-
-class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
-
-  void getNext(){
-    current = WordPair.random();
-    notifyListeners();
-  }
-
-  var favorites = <WordPair>[];
-
-  void toggleFavorite(){
-    if(favorites.contains(current)){
-      favorites.remove(current);
-    } else {
-      favorites.add(current);
-    }
-    notifyListeners();
-  }
-
 }
