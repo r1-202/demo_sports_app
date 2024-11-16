@@ -9,7 +9,10 @@ Future<List<League>> getLeagues() async
 {
   http.Response response = await http.get(Uri.parse(
     "https://www.thesportsdb.com/api/v1/json/3/all_leagues.php"));
-  
+  if(response.statusCode != 200)
+  {
+    return List<League>.empty();
+  }
   Map<String, dynamic> jsonMap = jsonDecode(response.body) as Map<String, dynamic>;
   var listJson = jsonMap["leagues"] as List<dynamic>;
   List<League> list = List<League>.empty(growable: true);
@@ -23,4 +26,9 @@ Future<List<League>> getLeagues() async
     }
   }
   return list;
+}
+
+Future<List<Event>> getEvents(String leagueId) async
+{
+  return List<Event>.empty();
 }
